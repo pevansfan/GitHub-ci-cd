@@ -11,6 +11,7 @@ jobs:
         steps:
             - name: Récupérer le nom
               uses: actions/checkout@v7
+
             - name: Lister le contenu de répertoire
               run: |
                   echo "Contenu du répertoire : "
