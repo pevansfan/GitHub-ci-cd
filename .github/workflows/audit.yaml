@@ -8,31 +8,30 @@ on:
 jobs:
     premier-job:
         runs-on: ubuntu-latest
+
         steps:
             - name: Récupérer le code
-              uses: actions/checkout@v7
-
-            - name: Récupérer le chemin du cache composer
-              id: composer cache
-              run: |
-                    echo "Chemin du composer : "
-                    echo "dir=${composer config files-dir}" >> $GITHUB_OUTPUT
+              uses: actions/checkout@v4
 
             - name: Installer PHP
               uses: shivammathur/setup-php@v2
-
               with:
-                php-version: '8.5'
-                extensions: mbstring, intl
+                  php-version: "8.5"
+                  extensions: mbstring, intl
+
+            - name: Récupérer le chemin du cache composer
+              id: composer-cache
+              run: |
+                  echo "Chemin du composer :"
+                  echo "dir=$(composer config cache-files-dir)" >> "$GITHUB_OUTPUT"
 
             - name: Mise en cache
-              uses: actions/cache@v6
-
+              uses: actions/cache@v4
               with:
-                path: ${{steps.composer-cache.outputs.dir}}
-                key: ${{runner.os}-composer-${{ hashFiles('**/composer.lock') }}}}
-                restore-keys: ${{runner.os}}-composer-
+                  path: ${{ steps.composer-cache.outputs.dir }}
+                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+                  restore-keys: |
+                      ${{ runner.os }}-composer-
 
             - name: Installer les dépendances composer
-              run: composer install --no-progress --no-suggest --prefer-dist
-
+              run: composer install --no-progress --prefer-dist
