@@ -1,0 +1,17 @@
+name: premier workflow
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    premier-job:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Récupérer le nom
+              users: actions/checkout@v7
+            - name: Lister le contenu de répertoire
+              run: |
+                  echo "Contenu du répertoire : "
+                  ls -la
