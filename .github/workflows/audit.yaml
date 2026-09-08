@@ -35,3 +35,4 @@ jobs:
 
             - name: Installer les dépendances composer
               run: composer install --no-progress --no-suggest --prefer-dist
+
